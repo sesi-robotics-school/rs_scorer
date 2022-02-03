@@ -1,0 +1,62 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "Round",
+"language": "GDScript",
+"path": "res://src/scripts/round.gd"
+}, {
+"base": "Resource",
+"class": "Score",
+"language": "GDScript",
+"path": "res://src/scripts/score.gd"
+} ]
+_global_script_class_icons={
+"Round": "",
+"Score": ""
+}
+
+[application]
+
+config/name="rs_scorer"
+run/main_scene="res://src/scenes/main.tscn"
+boot_splash/image="res://src/assets/sprites/banner_cargo_connect.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+boot_splash/bg_color=Color( 1, 1, 1, 1 )
+config/icon="res://src/assets/sprites/rslogo.png"
+
+[autoload]
+
+RoundDB="*res://src/scripts/round_db.gd"
+CGUtilities="*res://addons/ChartGraph/core/utilities.gd"
+
+[display]
+
+window/size/width=1360
+window/size/height=720
+window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.0862745, 0.0862745, 0.121569, 1 )
+environment/default_environment="res://default_env.tres"
