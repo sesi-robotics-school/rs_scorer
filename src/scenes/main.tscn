@@ -1,0 +1,1247 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/GDCharts/script.gd" type="Script" id=1]
+[ext_resource path="res://src/scripts/main.gd" type="Script" id=2]
+[ext_resource path="res://src/resources/default.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/resources/main.theme" type="Theme" id=4]
+[ext_resource path="res://src/assets/sprites/rslogo.png" type="Texture" id=5]
+
+[node name="Main" type="CanvasLayer"]
+script = ExtResource( 2 )
+sw_btn = NodePath("Margin/HBox/VBox/VBoxContainer/StopwatchBtn")
+sw_val = NodePath("Margin/HBox/VBox/VBoxContainer/HBox/StopwatchValue")
+scr_lbl = NodePath("Margin/HBox/VBox/VBoxContainer/Score")
+best_score_lbl = NodePath("Margin/HBox/VBox/VBoxContainer/BestRoundScore")
+best_time_lbl = NodePath("Margin/HBox/VBox/VBoxContainer/BestRoundTime")
+avg_score_lbl = NodePath("Margin/HBox/VBox/VBoxContainer/AvgRoundScore")
+avg_time_lbl = NodePath("Margin/HBox/VBox/VBoxContainer/AvgRoundTime")
+round_count_lbl = NodePath("Margin/HBox/VBox/VBoxContainer/RoundCount")
+chart = NodePath("Margin/HBox/VBoxContainer/ReferenceRect/GDCharts")
+idx_init = NodePath("Margin/HBox/VBoxContainer/HBoxContainer2/SpinBox")
+idx_final = NodePath("Margin/HBox/VBoxContainer/HBoxContainer2/SpinBox2")
+data_opt = NodePath("Margin/HBox/VBoxContainer/HBoxContainer/OptionButton")
+remain_conts = NodePath("Margin/HBox/VBox/VBoxContainer/RemainingContainersLbl")
+chick_opt = NodePath("Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer3/OptionButton")
+table = NodePath("Margin/HBox/VBoxContainer/ReferenceRect/RichTextLabel")
+spin_round_med = NodePath("Margin/HBox/VBox/VBoxContainer/HBoxContainer/SpinBox")
+spinboxes = [ "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer2/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer3/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer2/SpinBox" ]
+
+[node name="Margin" type="MarginContainer" parent="."]
+margin_right = 1360.0
+margin_bottom = 720.0
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+margin_right = 1360.0
+margin_bottom = 720.0
+theme = ExtResource( 4 )
+
+[node name="VBox" type="ScrollContainer" parent="Margin/HBox"]
+margin_right = 232.0
+margin_bottom = 720.0
+theme = ExtResource( 4 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/VBox"]
+margin_right = 232.0
+margin_bottom = 422.0
+theme = ExtResource( 4 )
+custom_constants/separation = 2
+
+[node name="StopwatchTitle" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_right = 232.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "          Cronometro         "
+
+[node name="StopwatchBtn" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 22.0
+margin_right = 232.0
+margin_bottom = 42.0
+theme = ExtResource( 4 )
+text = "Iniciar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 44.0
+margin_right = 232.0
+margin_bottom = 64.0
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StopwatchPrefix" type="Label" parent="Margin/HBox/VBox/VBoxContainer/HBox"]
+margin_right = 120.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Tempo restante:"
+
+[node name="StopwatchValue" type="Label" parent="Margin/HBox/VBox/VBoxContainer/HBox"]
+margin_left = 124.0
+margin_right = 148.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "150"
+
+[node name="Score" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 66.0
+margin_right = 232.0
+margin_bottom = 86.0
+theme = ExtResource( 4 )
+text = "Pontuação Atual: 60"
+
+[node name="RemainingContainersLbl" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 88.0
+margin_right = 232.0
+margin_bottom = 108.0
+text = "Contâiners restantes: 8"
+
+[node name="RoundHistoryTitle" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 110.0
+margin_right = 232.0
+margin_bottom = 153.0
+theme = ExtResource( 4 )
+text = "
+Histórico de Rounds"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RegisterRoundBtn" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 155.0
+margin_right = 232.0
+margin_bottom = 175.0
+theme = ExtResource( 4 )
+text = "Registrar Round"
+
+[node name="SetRoudVideo" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 177.0
+margin_right = 232.0
+margin_bottom = 197.0
+theme = ExtResource( 4 )
+text = "Definir vídeo round"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UndoRound" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 199.0
+margin_right = 232.0
+margin_bottom = 219.0
+text = "Desfazer Round"
+
+[node name="ClearBtn" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 221.0
+margin_right = 232.0
+margin_bottom = 241.0
+theme = ExtResource( 4 )
+text = "Limpar histórico"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 243.0
+margin_right = 232.0
+margin_bottom = 263.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Margin/HBox/VBox/VBoxContainer/HBoxContainer"]
+margin_right = 112.0
+margin_bottom = 20.0
+text = "Mostrar round "
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/VBox/VBoxContainer/HBoxContainer"]
+margin_left = 116.0
+margin_right = 228.0
+margin_bottom = 20.0
+
+[node name="BestRoundTime" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 265.0
+margin_right = 232.0
+margin_bottom = 285.0
+theme = ExtResource( 4 )
+text = "Melhor tempo: "
+
+[node name="BestRoundScore" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 287.0
+margin_right = 232.0
+margin_bottom = 307.0
+theme = ExtResource( 4 )
+text = "Melhor pontuação:"
+
+[node name="AvgRoundScore" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 309.0
+margin_right = 232.0
+margin_bottom = 329.0
+theme = ExtResource( 4 )
+text = "Média de tempo:"
+
+[node name="AvgRoundTime" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 331.0
+margin_right = 232.0
+margin_bottom = 351.0
+theme = ExtResource( 4 )
+text = "Média de pontuação:"
+
+[node name="RoundCount" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 353.0
+margin_right = 232.0
+margin_bottom = 373.0
+theme = ExtResource( 4 )
+text = "Quantidade de Rounds: "
+
+[node name="VBoxContainer2" type="ScrollContainer" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 375.0
+margin_right = 232.0
+margin_bottom = 375.0
+theme = ExtResource( 4 )
+follow_focus = true
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/VBox/VBoxContainer/VBoxContainer2"]
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 377.0
+margin_right = 232.0
+margin_bottom = 377.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="Margin/HBox/VBox/VBoxContainer/ReferenceRect"]
+margin_right = 230.0
+margin_bottom = 230.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Margin/HBox/VBox/VBoxContainer/ReferenceRect"]
+margin_left = 2.0
+margin_top = 259.0
+margin_right = 234.0
+margin_bottom = 342.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 379.0
+margin_right = 232.0
+margin_bottom = 422.0
+text = "
+Tabela de valores do gráfico"
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/HBox"]
+margin_left = 236.0
+margin_right = 680.0
+margin_bottom = 720.0
+theme = ExtResource( 4 )
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer"]
+margin_right = 432.0
+margin_bottom = 1520.0
+theme = ExtResource( 4 )
+custom_constants/separation = 10
+
+[node name="M00" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 50.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M00"]
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M00/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M00: Bônus da Área de Inspeção Menor"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M00/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M00/VBoxContainer/HBoxContainer"]
+margin_right = 392.0
+margin_bottom = 20.0
+text = "Equipamentos couberam na área de inspeção pequena"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M00/VBoxContainer/HBoxContainer"]
+margin_left = 396.0
+margin_right = 412.0
+margin_bottom = 20.0
+
+[node name="M01" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 110.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M01"]
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M01/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M01: Projeto de Inovação"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M01/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M01/VBoxContainer/HBoxContainer"]
+margin_right = 304.0
+margin_bottom = 20.0
+text = "Em contato com o círculo CARGO CONNECT"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M01/VBoxContainer/HBoxContainer"]
+margin_left = 308.0
+margin_right = 324.0
+margin_bottom = 20.0
+
+[node name="M02" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 432.0
+margin_bottom = 200.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M02: Capacidade Não Utilizada"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer/HBoxContainer"]
+margin_right = 176.0
+margin_bottom = 20.0
+text = "Contâiner azul fechado"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer/HBoxContainer"]
+margin_left = 180.0
+margin_right = 196.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer/HBoxContainer2"]
+margin_right = 208.0
+margin_bottom = 20.0
+text = "Quantidade de peças postas"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer/HBoxContainer2"]
+margin_left = 212.0
+margin_right = 324.0
+margin_bottom = 20.0
+max_value = 6.0
+
+[node name="M03" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 210.0
+margin_right = 432.0
+margin_bottom = 290.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M03: Descarga de Avião Cargueiro"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer/HBoxContainer2"]
+margin_right = 272.0
+margin_bottom = 20.0
+text = "Porta em contato à estrutura preta"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer/HBoxContainer2"]
+margin_left = 276.0
+margin_right = 292.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer/HBoxContainer"]
+margin_right = 288.0
+margin_bottom = 20.0
+text = "Contâiner completamente independente"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer/HBoxContainer"]
+margin_left = 292.0
+margin_right = 308.0
+margin_bottom = 20.0
+
+[node name="M04" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 300.0
+margin_right = 432.0
+margin_bottom = 380.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M04: Jornada dos Transportes"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer/HBoxContainer"]
+margin_right = 232.0
+margin_bottom = 20.0
+text = "Avião ultrapassou seu destino"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer/HBoxContainer"]
+margin_left = 236.0
+margin_right = 252.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer/HBoxContainer2"]
+margin_right = 256.0
+margin_bottom = 20.0
+text = "Caminhão ultrapassou seu destino"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer/HBoxContainer2"]
+margin_left = 260.0
+margin_right = 276.0
+margin_bottom = 20.0
+
+[node name="M05" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 390.0
+margin_right = 432.0
+margin_bottom = 440.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M05"]
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M05/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M05: Troca de motor"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M05/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M05/VBoxContainer/HBoxContainer"]
+margin_right = 384.0
+margin_bottom = 20.0
+text = "Rotacionado 270° a partir de sua posição inicial"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M05/VBoxContainer/HBoxContainer"]
+margin_left = 388.0
+margin_right = 404.0
+margin_bottom = 20.0
+
+[node name="M06" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 450.0
+margin_right = 432.0
+margin_bottom = 530.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M06: Prevenção de Acidentes"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer/HBoxContainer"]
+margin_right = 272.0
+margin_bottom = 20.0
+text = "Robô estacionado após a linha azul"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer/HBoxContainer"]
+margin_left = 276.0
+margin_right = 292.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer/HBoxContainer2"]
+margin_right = 128.0
+margin_bottom = 20.0
+text = "Painel derrubado"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer/HBoxContainer2"]
+margin_left = 132.0
+margin_right = 148.0
+margin_bottom = 20.0
+
+[node name="M07" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 540.0
+margin_right = 432.0
+margin_bottom = 620.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M07: Descarga de Navio Cargueiro"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer/HBoxContainer"]
+margin_right = 256.0
+margin_bottom = 20.0
+text = "Contâiner sem tocar convés leste"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer/HBoxContainer"]
+margin_left = 260.0
+margin_right = 276.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer/HBoxContainer2"]
+margin_right = 376.0
+margin_bottom = 20.0
+text = "Contâiner completamente a leste do convés leste"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer/HBoxContainer2"]
+margin_left = 380.0
+margin_right = 396.0
+margin_bottom = 20.0
+
+[node name="M08" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 630.0
+margin_right = 432.0
+margin_bottom = 710.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M08: Lançamento Aéreo"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer/HBoxContainer"]
+margin_right = 336.0
+margin_bottom = 20.0
+text = "Carga de Alimentos separada do helicóptero"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer/HBoxContainer"]
+margin_left = 340.0
+margin_right = 356.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer/HBoxContainer2"]
+margin_right = 376.0
+margin_bottom = 20.0
+text = "Carga da arena vizinha no círculo CARGO CONNECT"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer/HBoxContainer2"]
+margin_left = 380.0
+margin_right = 396.0
+margin_bottom = 20.0
+
+[node name="M09" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 720.0
+margin_right = 432.0
+margin_bottom = 800.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M09: Trilhos de Trem"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer/HBoxContainer"]
+margin_right = 136.0
+margin_bottom = 20.0
+text = "Trilhos abaixados"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer/HBoxContainer"]
+margin_left = 140.0
+margin_right = 156.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer/HBoxContainer2"]
+margin_right = 208.0
+margin_bottom = 20.0
+text = "Trem ultrapassando a trava"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer/HBoxContainer2"]
+margin_left = 212.0
+margin_right = 228.0
+margin_bottom = 20.0
+
+[node name="M10" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 810.0
+margin_right = 432.0
+margin_bottom = 860.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M10"]
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M10/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M10: Centro de Distribuição (apenas contâiner laranja)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M10/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M10/VBoxContainer/HBoxContainer"]
+margin_right = 272.0
+margin_bottom = 20.0
+text = "Apenas contâiner laranja na missão"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M10/VBoxContainer/HBoxContainer"]
+margin_left = 276.0
+margin_right = 292.0
+margin_bottom = 20.0
+
+[node name="M11" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 870.0
+margin_right = 432.0
+margin_bottom = 950.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M11: Entrega em Domicílio"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer/HBoxContainer"]
+margin_right = 144.0
+margin_bottom = 20.0
+text = "Encomenda entregue"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer/HBoxContainer"]
+margin_left = 148.0
+margin_right = 164.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer/HBoxContainer2"]
+margin_right = 120.0
+margin_bottom = 20.0
+text = "Acima do degrau"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer/HBoxContainer2"]
+margin_left = 124.0
+margin_right = 140.0
+margin_bottom = 20.0
+
+[node name="M12" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 960.0
+margin_right = 432.0
+margin_bottom = 1070.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12"]
+margin_right = 432.0
+margin_bottom = 110.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M12: Entrega de Grandes Volumes"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer"]
+margin_right = 368.0
+margin_bottom = 20.0
+text = "Lâmina entregue sem nenhum equipamento tocando"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer"]
+margin_left = 372.0
+margin_right = 388.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer2"]
+margin_right = 208.0
+margin_bottom = 20.0
+text = "Lâmina sem tocar ao tapete"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer2"]
+margin_left = 212.0
+margin_right = 228.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer"]
+margin_top = 90.0
+margin_right = 432.0
+margin_bottom = 110.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer3"]
+margin_right = 64.0
+margin_bottom = 20.0
+text = "Galinha "
+
+[node name="OptionButton" type="OptionButton" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer3"]
+margin_left = 68.0
+margin_right = 82.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer3"]
+margin_left = 86.0
+margin_right = 198.0
+margin_bottom = 20.0
+text = "de seu círculo"
+
+[node name="M13" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 1080.0
+margin_right = 432.0
+margin_bottom = 1160.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13"]
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+text = "M13: Caminhões Conectados"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer/HBoxContainer"]
+margin_right = 312.0
+margin_bottom = 20.0
+text = "Ambos conectados e fora da área do robô"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer/HBoxContainer"]
+margin_left = 316.0
+margin_right = 332.0
+margin_bottom = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer/HBoxContainer2"]
+margin_right = 144.0
+margin_bottom = 20.0
+text = "Um travado à ponte"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer/HBoxContainer2"]
+margin_left = 148.0
+margin_right = 164.0
+margin_bottom = 20.0
+
+[node name="M14" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 1170.0
+margin_right = 432.0
+margin_bottom = 1190.0
+theme = ExtResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M14"]
+margin_right = 432.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M14/HBoxContainer"]
+margin_right = 80.0
+margin_bottom = 20.0
+text = "M14: Ponte"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M14/HBoxContainer"]
+margin_left = 84.0
+margin_right = 196.0
+margin_bottom = 20.0
+max_value = 2.0
+
+[node name="M15" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 1200.0
+margin_right = 432.0
+margin_bottom = 1310.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15"]
+margin_right = 432.0
+margin_bottom = 110.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "M15: Carregamento de Carga"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer"]
+margin_right = 160.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Caminhões conectados"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer"]
+margin_left = 164.0
+margin_right = 276.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+max_value = 2.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer2"]
+margin_right = 32.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Trem"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer2"]
+margin_left = 36.0
+margin_right = 148.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+max_value = 2.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer"]
+margin_top = 90.0
+margin_right = 432.0
+margin_bottom = 110.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer3"]
+margin_right = 120.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Convés do Navio"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer3"]
+margin_left = 124.0
+margin_right = 236.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+max_value = 2.0
+
+[node name="M16" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 1320.0
+margin_right = 432.0
+margin_bottom = 1490.0
+theme = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16"]
+margin_right = 432.0
+margin_bottom = 170.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer"]
+margin_right = 432.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "M16: CARGO CONNECT"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer"]
+margin_top = 30.0
+margin_right = 432.0
+margin_bottom = 50.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer"]
+margin_right = 264.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Contâiner parcialmente em círculo"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer"]
+margin_left = 268.0
+margin_right = 380.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+max_value = 8.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer"]
+margin_top = 60.0
+margin_right = 432.0
+margin_bottom = 80.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer2"]
+margin_right = 272.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Contâiner completamente em círculo"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer2"]
+margin_left = 276.0
+margin_right = 388.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+max_value = 8.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer"]
+margin_top = 90.0
+margin_right = 432.0
+margin_bottom = 110.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer4"]
+margin_right = 240.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Contâiner azul no círculo azul"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer4"]
+margin_left = 244.0
+margin_right = 260.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer"]
+margin_top = 120.0
+margin_right = 432.0
+margin_bottom = 140.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer5"]
+margin_right = 256.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Contâiner verde no círculo verde"
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer5"]
+margin_left = 260.0
+margin_right = 276.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer"]
+margin_top = 150.0
+margin_right = 432.0
+margin_bottom = 170.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer3"]
+margin_right = 272.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Círculos com ao menos um contâiner"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer3"]
+margin_left = 276.0
+margin_right = 388.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+max_value = 6.0
+
+[node name="M17" type="PanelContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer"]
+margin_top = 1500.0
+margin_right = 432.0
+margin_bottom = 1520.0
+theme = ExtResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/ScrollContainer/VBoxContainer/M17"]
+margin_right = 432.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Margin/HBox/ScrollContainer/VBoxContainer/M17/HBoxContainer"]
+margin_right = 184.0
+margin_bottom = 20.0
+text = "M17: Discos de precisão"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/ScrollContainer/VBoxContainer/M17/HBoxContainer"]
+margin_left = 188.0
+margin_right = 300.0
+margin_bottom = 20.0
+max_value = 6.0
+value = 6.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox"]
+margin_left = 684.0
+margin_right = 1140.0
+margin_bottom = 720.0
+theme = ExtResource( 4 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
+margin_right = 456.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
+margin_right = 168.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Intervalo de índices:"
+
+[node name="SpinBox" type="SpinBox" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
+margin_left = 172.0
+margin_right = 284.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+
+[node name="SpinBox2" type="SpinBox" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
+margin_left = 288.0
+margin_right = 400.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
+margin_left = 404.0
+margin_right = 456.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Auto"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
+margin_top = 30.0
+margin_right = 456.0
+margin_bottom = 50.0
+theme = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="Margin/HBox/VBoxContainer/HBoxContainer"]
+margin_right = 160.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Dados para plotagem:"
+
+[node name="OptionButton" type="OptionButton" parent="Margin/HBox/VBoxContainer/HBoxContainer"]
+margin_left = 164.0
+margin_right = 218.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Round"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Margin/HBox/VBoxContainer"]
+margin_top = 60.0
+margin_right = 456.0
+margin_bottom = 60.0
+theme = ExtResource( 4 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/HBox/VBoxContainer/ReferenceRect"]
+margin_left = -679.0
+margin_top = 364.0
+margin_right = -452.0
+margin_bottom = 574.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GDCharts" type="ReferenceRect" parent="Margin/HBox/VBoxContainer/ReferenceRect"]
+margin_right = 625.0
+margin_bottom = 614.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+label_font = ExtResource( 3 )
+MAX_VALUES = 24
+grid_color = Color( 1, 1, 1, 0.694118 )
+
+[node name="FileDialog" type="FileDialog" parent="."]
+visible = true
+margin_left = 434.0
+margin_top = 224.0
+margin_right = 1025.0
+margin_bottom = 550.0
+theme = ExtResource( 4 )
+popup_exclusive = true
+window_title = "Selecionar arquivo de mídia - Round"
+resizable = true
+mode = 0
+access = 2
+current_dir = "/home/me/dev/rs_scorer"
+current_path = "/home/me/dev/rs_scorer/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+visible = true
+margin_left = 674.0
+margin_top = 363.0
+margin_right = 757.0
+margin_bottom = 421.0
+window_title = "Alerta"
+dialog_text = "Arquivo inexistente ou movido"
+
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/StopwatchBtn" to="." method="_on_StopwatchBtn_pressed"]
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/RegisterRoundBtn" to="." method="_on_RegisterRoundBtn_pressed"]
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/SetRoudVideo" to="." method="_on_SetRoudVideo_pressed"]
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/UndoRound" to="." method="_on_UndoRound_pressed"]
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/ClearBtn" to="." method="up_chart"]
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/ClearBtn" to="." method="_on_ClearBtn_pressed"]
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M00/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M00_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M01/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M01_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M02_CheckBox_toggled"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M02/VBoxContainer/HBoxContainer2/SpinBox" to="." method="_on_M02_SpinBox_value_changed"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M03_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M03/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M03_CheckBox2_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M04_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M04/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M04_CheckBox2_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M05/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M05_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M06_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M06/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M06_CheckBox2_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M07_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M07/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M07_CheckBox2_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M08_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M08/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M08_CheckBox2_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M09_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M09/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M09_CheckBox2_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M10/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M10_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M11_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M11/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M11_CheckBox2_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M12_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M12_CheckBox2_toggled"]
+[connection signal="item_selected" from="Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer3/OptionButton" to="." method="_on_M12_OptionButton_item_selected"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M13_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M13/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_M13_CheckBox2_toggled"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M14/HBoxContainer/SpinBox" to="." method="_on_M14_SpinBox_value_changed"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_M15_SpinBox_value_changed"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer2/SpinBox" to="." method="_on_M15_SpinBox2_value_changed"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer3/SpinBox" to="." method="_on_M15_SpinBox3_value_changed"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_M16_SpinBox_value_changed"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer2/SpinBox" to="." method="_on_M16_SpinBox2_value_changed"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer4/CheckBox" to="." method="_on_M16_CheckBox_toggled"]
+[connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer5/CheckBox" to="." method="_on_M16_CheckBox2_toggled"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer3/SpinBox" to="." method="_on_M16_SpinBox3_value_changed"]
+[connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M17/HBoxContainer/SpinBox" to="." method="_on_M17_SpinBox_value_changed"]
+[connection signal="value_changed" from="Margin/HBox/VBoxContainer/HBoxContainer2/SpinBox" to="." method="up_chart"]
+[connection signal="value_changed" from="Margin/HBox/VBoxContainer/HBoxContainer2/SpinBox2" to="." method="up_chart"]
+[connection signal="toggled" from="Margin/HBox/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_CheckBox_toggled"]
+[connection signal="item_selected" from="Margin/HBox/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]

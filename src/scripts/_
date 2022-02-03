@@ -1,0 +1,153 @@
+extends Resource
+class_name Score
+
+var missions: Array = [
+	# M00: Bỗônus de Insperação dos Equipamentos (20)
+	# - Todos os equipamentos cabem na área de insperação menor
+	false,
+	# M01: Modelo do Projeto de Inovação (20)
+	# - É formado por ao menos duas peças LEGO brancas
+	# - Tem o comprimento de, pelo meno, quatro "pinos" de um bloco LEGO em uma das direções
+	# - Qualquer uma de suas partes está tocando no círculo CARGO CONNECT
+	false,
+	# M02: Capacidade Não Utilizada (20 | 30)
+	# - 0 < Peças < 6 (20) | Peças = 6 (30)
+	# - Está fechado
+	[0, false],
+	# M03: Descarga de Avião Cargueiro (20 + 10)
+	# - Porta tocando estrutura preta (20)
+	# - Contâiner completamente separado do avião (10)
+	[false, false],
+	# M04: Jornada dos Transportes (10 + 10 + 10)
+	# - Caminhão ultrapassou linha azul (10)
+	# - Avião ultrapassou linha azul (10)
+	# - Ambos ultrapassaram (10)
+	[false, false],
+	# M05: Troca de Motor (20)
+	# - 270° graus rotacionados de sua origem
+	[false],
+	# M06: Prevenção de Acidentes (20 | 30)
+	# - Robô estacionado aṕpós linha azul
+	# - Painel não derrubado (20) | Painel derrubado (30)
+	[false, false],
+	# M07: Descarga de Navio Cargueiro (20 + 10)
+	# - Contâiner sem tocar convés leste (20)
+	# - Completamente a laste do convés leste (10)
+	[false, false],
+	# M08: Lançamento Aéreo (20 + 10 + 10)
+	# - Carga de Alimentos separada do helicóptero da equipe (20)
+	# - Carga de Alimentos da arena vizinha no círculo CARGO CONNECT (10)
+	# - Ambas as equipes separaram suas cargas em suas arenas (10)
+	[false, false],
+	# M09: Trilhos de Trem (20 + 20)
+	# - Trilhos do trem abaixados (20)
+	# - Trem ultrapassando a trava (20)
+	[false, false],
+	# M10: Centro de Distribuição (20)
+	# - Laranja sendo o único contâiner restante
+	false,
+	# M11: Entrega em Domicílio (20 + 10)
+	# - Encomenda entregue (20)
+	# - Acima do degrau (10)
+	[false, false],
+	# M12: Entrega de Grandes Volumes (20 + 10 + 5 + 10)
+	# - Lâmina entregue sem nenhum equipamento tocando (20)
+	# - Lâmina sem tocar ao tapete (10)
+	# - Estátua da Galinha dentro de seu círculo (5)
+	# - Estátua da Galinha completamente dentro de seu círculo (10)
+	[false, false, false, false],
+	# M13: Caminhões Conectados (10 + 10 + 10)
+	# - Ambos conectados e fora da área do robô (10)
+	# - Um travado à ponte (10)
+	# - Ambas as afirmações verdadeiras (10)
+	[false, false, false],
+	# M14: Ponte (10 + 10)
+	# - Lado esquerdo abaixado
+	# - Lado direito abaixado
+	0,
+	# M15: Carregamento de Carga (10x + 20y + 30z)
+	# - Contâiners em caminhões Conectados (10x)
+	# - Trem (20x)
+	# - Convés do Navio (30x)
+	[0, 0, 0],
+	# M16: CARGO CONNECT (5x + 10y + 20 + 20 + 10z)
+	# - Contâiner parcialmente em círculo (5x)
+	# - Contâiner completamente em círculo (10x)
+	# - Contâiner azul no círculo azul (20)
+	# - Contâiner verde no círculo verde (20)
+	# - Algum círculo com ao menos um contâiner (10x)
+	[0, 0, false, false, 0],
+	# M17: Discoes de Precisão (0 ~ 50)
+	# - 1: 10
+	# - 2: 15
+	# - 3: 25
+	# - 4: 35
+	# - 5: 50
+	# - 6: 50
+	6
+]
+
+func calc() -> int:
+	var score: int = missions[0] * 20
+	
+	score += int(missions[1]) * 20
+	
+	if missions[2][1]:
+		score += 20
+		if missions[2][0] == 6: score += 10
+		
+	if missions[3][0]: score += 20
+	if missions[3][1]: score += 10
+	
+	if missions[4][0]: score += 10
+	if missions[4][1]: score += 10
+	if missions[4][0] and missions[4][1]: score += 10
+	
+	if missions[5]: score += 20
+	
+	if missions[6][0]:
+		if missions[6][1]: score += 30
+		else: score += 20
+		
+	if missions[7][0]: score += 20
+	if missions[7][1]: score += 10
+	
+	if missions[8][0]: score += 20
+	if missions[8][1]: score += 10
+	if missions[8][0] and missions[8][1]: score += 10
+	
+	if missions[9][0]: score += 20
+	if missions[9][1]: score += 20
+	
+	if missions[10]: score += 20
+	
+	if missions[11][0]:
+		score += 20
+		if missions[11][1]: score += 10
+	
+	if missions[12][0]:
+		score += 20
+		if missions[12][1]: score += 10
+	if missions[12][2]: score += 5
+	if missions[12][3]: score += 10
+	
+	if missions[13][0]: score += 10
+	if missions[13][1]: score += 10
+	if missions[13][2]: score += 10
+	
+	if missions[14][0]: score += 10
+	if missions[14][1]: score += 10
+	
+	score += missions[15][0] * 10
+	score += missions[15][1] * 20
+	score += missions[15][2] * 30
+	
+	score += missions[16][0] * 5
+	score += missions[16][1] * 10
+	if missions[16][2]: score += 20
+	if missions[16][3]: score += 20
+	score += missions[16][4] * 10
+	
+	score += [0, 10, 15, 25, 35, 50, 50][missions[17]]
+	
+	return score
