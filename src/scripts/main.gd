@@ -66,7 +66,6 @@ func _on_RegisterRoundBtn_pressed() -> void:
 	var inst := Round.new()
 	inst.set_props(score, OS.get_unix_time(), 150.0 - remain_time, round_media_path)
 	RoundDB.inc_round(inst)
-	table.bbcode_text = ""
 	up_stats()
 	up_chart(false)
 
@@ -288,10 +287,7 @@ func _on_M16_SpinBox3_value_changed(value: float) -> void:
 
 
 func up_chart(_x: bool):
-	table.bbcode_text = ""
-	chart.clear_chart()
-	if auto_range:
-		idx_final.value = RoundDB.rounds.size()
+	if auto_range: idx_final.value = RoundDB.rounds.size()
 	if idx_final.value - idx_init.value < 2: return
 	if data_opt.selected == 19: return avg_chart()
 	
@@ -304,6 +300,9 @@ func up_chart(_x: bool):
 		vals.append(val)
 		if val > max_val: max_val = val
 		sum += val
+
+	table.bbcode_text = ""
+	chart.clear_chart()
 	for i in range(idx_init.value, idx_final.value):
 		append_round(i, vals[i - idx_init.value], sum / (idx_final.value - idx_init.value))
 
@@ -363,6 +362,7 @@ func append_round(idx: int, val: int, med: int) -> void:
 
 
 func _on_CheckBox_toggled(button_pressed: bool) -> void:
+	print_stack()
 	auto_range = false
 	idx_init.value = 0
 	idx_final.value = RoundDB.rounds.size()
