@@ -1156,9 +1156,7 @@ margin_left = -679.0
 margin_top = 364.0
 margin_right = -452.0
 margin_bottom = 574.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+bbcode_enabled = true
 
 [node name="GDCharts" type="ReferenceRect" parent="Margin/HBox/VBoxContainer/ReferenceRect"]
 margin_right = 625.0
@@ -1177,17 +1175,15 @@ margin_left = 434.0
 margin_top = 224.0
 margin_right = 1025.0
 margin_bottom = 550.0
+rect_min_size = Vector2( 250, 87.5 )
 theme = ExtResource( 4 )
 popup_exclusive = true
-window_title = "Selecionar arquivo de mídia - Round"
+window_title = "Abrir um Arquivo"
 resizable = true
 mode = 0
 access = 2
-current_dir = "/home/me/dev/rs_scorer"
-current_path = "/home/me/dev/rs_scorer/"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+current_dir = "/Users/Aluno/rs_scorer"
+current_path = "/Users/Aluno/rs_scorer/"
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 visible = true

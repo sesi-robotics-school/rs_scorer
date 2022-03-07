@@ -37,7 +37,6 @@ config/icon="res://src/assets/sprites/rslogo.png"
 [autoload]
 
 RoundDB="*res://src/scripts/round_db.gd"
-CGUtilities="*res://addons/ChartGraph/core/utilities.gd"
 
 [display]
 
@@ -47,7 +46,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/GDCharts/plugin.cfg" )
 
 [physics]
 

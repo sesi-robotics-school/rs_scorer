@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-enum StopwatchState { LAZY, RUNNING, STOPING }
+enum SwState { LAZY, RUNNING, STOPING }
 
 export(NodePath) onready var sw_btn = get_node(sw_btn)
 export(NodePath) onready var sw_val = get_node(sw_val)
@@ -19,9 +19,9 @@ export(NodePath) onready var chick_opt = get_node(chick_opt)
 export(NodePath) onready var table = get_node(table)
 export(NodePath) onready var spin_round_med = get_node(spin_round_med)
 
-export(Array) var spinboxes
+export(Array) var spinboxes: Array
 
-var sw_state = StopwatchState.LAZY
+var sw_state = SwState.LAZY
 var remain_time := 150.0
 var score := Score.new()
 var auto_range := false
@@ -29,9 +29,8 @@ var last_idx_type := 17
 var indx := 0
 var ifdx := 0
 var spinboxes_containers := [0, 0, 0, 0, 0, 0, 0, 0]
-var cameras = []
-var round_media_path = ""
-
+var cameras := []
+var round_media_path := ""
 
 func _ready() -> void:
 	for spin in range(spinboxes.size()):
@@ -56,7 +55,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if sw_state == StopwatchState.RUNNING:
+	if sw_state == SwState.RUNNING:
 		remain_time -= delta
 	if remain_time <= 0:
 		_on_StopwatchBtn_pressed()
@@ -67,9 +66,9 @@ func _on_RegisterRoundBtn_pressed() -> void:
 	var inst := Round.new()
 	inst.set_props(score, OS.get_unix_time(), 150.0 - remain_time, round_media_path)
 	RoundDB.inc_round(inst)
+	table.bbcode_text = ""
 	up_stats()
 	up_chart(false)
-
 
 func _on_ClearBtn_pressed() -> void:
 	RoundDB.rounds = []
@@ -78,21 +77,21 @@ func _on_ClearBtn_pressed() -> void:
 	RoundDB.total_score = 0
 	RoundDB.total_time = 0
 	chart.clear_chart()
-	table.text = ""
+	table.bbcode_text = ""
 	up_stats()
 
 
 func _on_StopwatchBtn_pressed() -> void:
 	match sw_state:
-		StopwatchState.LAZY:
+		SwState.LAZY:
 			sw_btn.text = "Parar"
-			sw_state = StopwatchState.RUNNING
-		StopwatchState.RUNNING:
+			sw_state = SwState.RUNNING
+		SwState.RUNNING:
 			sw_btn.text = "Resetar"
-			sw_state = StopwatchState.STOPING
-		StopwatchState.STOPING:
+			sw_state = SwState.STOPING
+		SwState.STOPING:
 			sw_btn.text = "Iniciar"
-			sw_state = StopwatchState.LAZY
+			sw_state = SwState.LAZY
 			remain_time = 150
 
 
@@ -128,9 +127,7 @@ func up_stats() -> void:
 	idx_final.max_value = RoundDB.rounds.size()
 	spin_round_med.max_value = RoundDB.rounds.size()
 
-
 ### Scoring
-
 
 func _on_M00_CheckBox_toggled(button_pressed: bool) -> void:
 	set_score(0, -1, button_pressed)
@@ -246,10 +243,8 @@ func _on_M17_SpinBox_value_changed(value: float) -> void:
 
 func up_container(contidx: int, value: int) -> void:
 	var sum := 0
-	for spin in spinboxes:
-		sum += spin.value
-	if sum > 8:
-		value -= 1
+	for spin in spinboxes: sum += spin.value
+	if sum > 8: value -= 1
 	remain_conts.text = "Contâiners restantes: " + str(8 - sum)
 	spinboxes[contidx].value = value
 	spinboxes_containers[contidx] = value
@@ -292,27 +287,25 @@ func _on_M16_SpinBox3_value_changed(value: float) -> void:
 	set_score(16, 4, int(value))
 
 
-func up_chart(_force):
-	table.text = ""
+func up_chart(_x: bool):
+	table.bbcode_text = ""
 	chart.clear_chart()
 	if auto_range:
 		idx_final.value = RoundDB.rounds.size()
-	if idx_final.value - idx_init.value < 2:
-		return
-	if data_opt.selected == 19:
-		avg_chart()
-		return
+	if idx_final.value - idx_init.value < 2: return
+	if data_opt.selected == 19: return avg_chart()
+	
 	var vals := []
 	var max_val := get_chart_val(idx_init.value)
+	var sum := 0
 
-	for i in range(idx_init.value, idx_final.value):
-		var val := get_chart_val(i)
+	for r in range(idx_init.value, idx_final.value):
+		var val := get_chart_val(r)
 		vals.append(val)
-		if val > max_val:
-			max_val = val
+		if val > max_val: max_val = val
+		sum += val
 	for i in range(idx_init.value, idx_final.value):
-		append_round(i, vals[i - idx_init.value])
-
+		append_round(i, vals[i - idx_init.value], sum / (idx_final.value - idx_init.value))
 
 func avg_chart():
 	for i in range(17):
@@ -325,18 +318,15 @@ func avg_chart():
 		var sum := 0.0
 		for mission_data in missions_data:
 			sum += mission_data / max(max_val, 1)
+		var med: float = sum / (idx_final.value - idx_init.value)
 		chart.create_new_point(
 			{
 				label = "M" + str(i).pad_zeros(2),
-				values = {data = (sum / (idx_final.value - idx_init.value)) * 100 }
+				values = {data = med * 100 }
 			}
 		)
-		table.text += (
-			"M"
-			+ str(i).pad_zeros(2)
-			+ ": "
-			+ str(sum / (idx_final.value - idx_init.value))
-			+ "\n"
+		table.bbcode_text += (
+			"M %s: %s\n" % [str(i).pad_zeros(2), str(med)]
 		)
 
 
@@ -353,16 +343,22 @@ func get_chart_val(idx: int) -> int:
 	return data
 
 
-func append_round(idx: int, val: int) -> void:
+func append_round(idx: int, val: int, med: int) -> void:
 	chart.create_new_point(
-		{label = str(idx + 1 if idx >= 0 else RoundDB.rounds.size()), values = {data = val}}
+		{label = str(idx if idx >= 0 else RoundDB.rounds.size()), values = {data = val}}
 	)
-	table.text += (
-		"Round "
-		+ str(idx + 1 if idx >= 0 else RoundDB.rounds.size())
-		+ ": "
-		+ str(val)
-		+ "\n"
+	var color := Color(1, 1, 1)
+	
+	if val > med: color = color.linear_interpolate(Color.green, val / med as float - 1)
+	elif val == 0: color = Color.red
+	elif val < med - 10: color = color.linear_interpolate(Color.red, med / val as float - 1)
+	
+	table.bbcode_text += (
+		"[color=#{color}]Round {name}: {score}[/color]\n".format({
+			"color": color.to_html(),
+			"name": str(idx if idx >= 0 else RoundDB.rounds.size()),
+			"score": str(val)
+		})
 	)
 
 
@@ -370,12 +366,12 @@ func _on_CheckBox_toggled(button_pressed: bool) -> void:
 	auto_range = false
 	idx_init.value = 0
 	idx_final.value = RoundDB.rounds.size()
-	up_chart(true)
+	up_chart(false)
 	auto_range = button_pressed
 
 
 func _on_OptionButton_item_selected(_index: int) -> void:
-	up_chart(true)
+	up_chart(false)
 
 
 func _on_M12_OptionButton_item_selected(index: int) -> void:
