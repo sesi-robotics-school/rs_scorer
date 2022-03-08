@@ -128,7 +128,7 @@ static func calc_mission(id: int, data) -> int:
 		6:
 			return (30 if int(data[1]) else 20) * int(data[0])
 		7:
-			return (int(data[0]) + int(data[1])) * 20
+			return (int(data[0])  * 2 + int(data[1])) * 10
 		8:
 			return (int(data[0] and data[1]) + int(data[1])) * 10 + int(data[0]) * 20
 		9:
@@ -138,7 +138,7 @@ static func calc_mission(id: int, data) -> int:
 		11:
 			return (30 if data[1] else 20) * int(data[0])
 		12:
-			return (30 if data[1] else 20) * int(data[0]) + int(data[2]) * 5 + int(data[3]) * 10
+			return (30 if data[1] else 20) * int(data[0]) + int(data[2]) * 5 + int(data[3]) * 5
 		13:
 			return (int(data[0]) + int(data[1]) + int(data[0] and data[1])) * 10
 		14:
