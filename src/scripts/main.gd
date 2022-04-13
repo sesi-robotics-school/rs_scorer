@@ -288,8 +288,6 @@ func _on_M16_SpinBox3_value_changed(value: float) -> void:
 
 
 func up_chart(_x):
-	table.bbcode_text = ""
-	chart.clear_chart()
 	if auto_range: idx_final.value = RoundDB.rounds.size()
 	if idx_final.value - idx_init.value < 2: return
 	if data_opt.selected == 19: return rnd_avg_chart()
@@ -301,11 +299,12 @@ func up_chart(_x):
 		if round_name.text == "*" or rd.name == round_name.text:
 			rounds.append(i)
 			var chart_val := get_chart_val(i)
-# warning-ignore:narrowing_conversion
 			max_val = max(max_val, chart_val)
 	rnd_chart(rounds, max_val)
 
 func rnd_avg_chart():
+	table.bbcode_text = ""
+	chart.clear_chart()
 	chart.max_value = 100
 	for i in range(17):
 		var max_val := Score.calc_mission(i, RoundDB.rounds[idx_init.value].score.missions[i])
@@ -329,10 +328,17 @@ func rnd_avg_chart():
 		)
 
 func rnd_chart(values: PoolIntArray, max_val: int):
-# warning-ignore:integer_division
-	var med := max_val / values.size()
+	table.bbcode_text = ""
+	chart.clear_chart()
+	var med := max_val / values.size() as float
+	var sum := 0
 	for i in values:
+		var rdv = get_chart_val(i)
+		sum += rdv
 		append_round(i, get_chart_val(i), med)
+	table.bbcode_text += (
+		"Média: " + str(sum / values.size() as float)
+	)
 
 func get_chart_val(idx: int) -> int:
 	match data_opt.selected:
@@ -343,7 +349,7 @@ func get_chart_val(idx: int) -> int:
 		)
 
 
-func append_round(idx: int, val: int, med: int) -> void:
+func append_round(idx: int, val: int, med: float) -> void:
 	chart.create_new_point(
 		{label = str(idx if idx >= 0 else RoundDB.rounds.size()), values = {data = val}}
 	)
