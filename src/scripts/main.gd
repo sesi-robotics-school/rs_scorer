@@ -301,10 +301,12 @@ func up_chart(_x):
 		if round_name.text == "*" or rd.name == round_name.text:
 			rounds.append(i)
 			var chart_val := get_chart_val(i)
+# warning-ignore:narrowing_conversion
 			max_val = max(max_val, chart_val)
 	rnd_chart(rounds, max_val)
 
 func rnd_avg_chart():
+	chart.max_value = 100
 	for i in range(17):
 		var max_val := Score.calc_mission(i, RoundDB.rounds[idx_init.value].score.missions[i])
 		var missions_data := []
@@ -327,6 +329,7 @@ func rnd_avg_chart():
 		)
 
 func rnd_chart(values: PoolIntArray, max_val: int):
+# warning-ignore:integer_division
 	var med := max_val / values.size()
 	for i in values:
 		append_round(i, get_chart_val(i), med)
