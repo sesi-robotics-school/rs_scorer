@@ -304,7 +304,7 @@ func up_chart(_x):
 
 func rnd_avg_chart():
 	table.bbcode_text = ""
-	chart.clear_chart()
+	chart.clear_chart()	
 	chart.max_value = 100
 	for i in range(17):
 		var max_val := Score.calc_mission(i, RoundDB.rounds[idx_init.value].score.missions[i])
