@@ -24,6 +24,7 @@ remain_conts = NodePath("Margin/HBox/VBox/VBoxContainer/RemainingContainersLbl")
 chick_opt = NodePath("Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer3/OptionButton")
 table = NodePath("Margin/HBox/VBoxContainer/ReferenceRect/RichTextLabel")
 spin_round_med = NodePath("Margin/HBox/VBox/VBoxContainer/HBoxContainer/SpinBox")
+round_name = NodePath("Margin/HBox/VBoxContainer/HBoxContainer2/LineEdit")
 spinboxes = [ "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer2/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer3/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer2/SpinBox" ]
 
 [node name="Margin" type="MarginContainer" parent="."]
@@ -1092,12 +1093,12 @@ value = 6.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox"]
 margin_left = 684.0
-margin_right = 1140.0
+margin_right = 1240.0
 margin_bottom = 720.0
 theme = ExtResource( 4 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
-margin_right = 456.0
+margin_right = 556.0
 margin_bottom = 20.0
 theme = ExtResource( 4 )
 
@@ -1119,16 +1120,21 @@ margin_right = 400.0
 margin_bottom = 20.0
 theme = ExtResource( 4 )
 
-[node name="CheckBox" type="CheckBox" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
+[node name="LineEdit" type="LineEdit" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
 margin_left = 404.0
-margin_right = 456.0
+margin_right = 500.0
+margin_bottom = 20.0
+
+[node name="CheckBox" type="CheckBox" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
+margin_left = 504.0
+margin_right = 556.0
 margin_bottom = 20.0
 theme = ExtResource( 4 )
 text = "Auto"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
 margin_top = 30.0
-margin_right = 456.0
+margin_right = 556.0
 margin_bottom = 50.0
 theme = ExtResource( 4 )
 
@@ -1147,7 +1153,7 @@ text = "Round"
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Margin/HBox/VBoxContainer"]
 margin_top = 60.0
-margin_right = 456.0
+margin_right = 556.0
 margin_bottom = 60.0
 theme = ExtResource( 4 )
 
@@ -1238,6 +1244,7 @@ dialog_text = "Arquivo inexistente ou movido"
 [connection signal="value_changed" from="Margin/HBox/ScrollContainer/VBoxContainer/M17/HBoxContainer/SpinBox" to="." method="_on_M17_SpinBox_value_changed"]
 [connection signal="value_changed" from="Margin/HBox/VBoxContainer/HBoxContainer2/SpinBox" to="." method="up_chart"]
 [connection signal="value_changed" from="Margin/HBox/VBoxContainer/HBoxContainer2/SpinBox2" to="." method="up_chart"]
+[connection signal="text_entered" from="Margin/HBox/VBoxContainer/HBoxContainer2/LineEdit" to="." method="up_chart"]
 [connection signal="toggled" from="Margin/HBox/VBoxContainer/HBoxContainer2/CheckBox" to="." method="_on_CheckBox_toggled"]
 [connection signal="item_selected" from="Margin/HBox/VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]

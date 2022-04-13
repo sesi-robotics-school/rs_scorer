@@ -51,7 +51,7 @@ func add_round_json(text: String) -> void:
 	
 	if roundjs.result.size() < 4: return
 
-	rs.set_props(rs.score, str2var(roundjs.result[1]), str2var(roundjs.result[2]) as float, roundjs.result[3])
+	rs.set_props(rs.score, str2var(roundjs.result[1]), str2var(roundjs.result[2]) as float, roundjs.result[3], roundjs.result[4])
 	inc_round(rs)
 	main_scn.call_deferred("up_stats")
 

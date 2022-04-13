@@ -18,6 +18,7 @@ export(NodePath) onready var remain_conts = get_node(remain_conts)
 export(NodePath) onready var chick_opt = get_node(chick_opt)
 export(NodePath) onready var table = get_node(table)
 export(NodePath) onready var spin_round_med = get_node(spin_round_med)
+export(NodePath) onready var round_name = get_node(round_name)
 
 export(Array) var spinboxes: Array
 
@@ -64,7 +65,7 @@ func _process(delta: float) -> void:
 
 func _on_RegisterRoundBtn_pressed() -> void:
 	var inst := Round.new()
-	inst.set_props(score, OS.get_unix_time(), 150.0 - remain_time, round_media_path)
+	inst.set_props(score, OS.get_unix_time(), 150.0 - remain_time, round_media_path, round_name.text)
 	RoundDB.inc_round(inst)
 	up_stats()
 	up_chart(false)
@@ -286,27 +287,24 @@ func _on_M16_SpinBox3_value_changed(value: float) -> void:
 	set_score(16, 4, int(value))
 
 
-func up_chart(_x: bool):
-	if auto_range: idx_final.value = RoundDB.rounds.size()
-	if idx_final.value - idx_init.value < 2: return
-	if data_opt.selected == 19: return avg_chart()
-	
-	var vals := []
-	var max_val := get_chart_val(idx_init.value)
-	var sum := 0
-
-	for r in range(idx_init.value, idx_final.value):
-		var val := get_chart_val(r)
-		vals.append(val)
-		if val > max_val: max_val = val
-		sum += val
-
+func up_chart(_x):
 	table.bbcode_text = ""
 	chart.clear_chart()
+	if auto_range: idx_final.value = RoundDB.rounds.size()
+	if idx_final.value - idx_init.value < 2: return
+	if data_opt.selected == 19: return rnd_avg_chart()
+	
+	var rounds := []
+	var max_val := 0
 	for i in range(idx_init.value, idx_final.value):
-		append_round(i, vals[i - idx_init.value], sum / (idx_final.value - idx_init.value))
+		var rd = RoundDB.rounds[i]
+		if round_name.text == "*" or rd.name == round_name.text:
+			rounds.append(i)
+			var chart_val := get_chart_val(i)
+			max_val = max(max_val, chart_val)
+	rnd_chart(rounds, max_val)
 
-func avg_chart():
+func rnd_avg_chart():
 	for i in range(17):
 		var max_val := Score.calc_mission(i, RoundDB.rounds[idx_init.value].score.missions[i])
 		var missions_data := []
@@ -328,18 +326,18 @@ func avg_chart():
 			"M %s: %s\n" % [str(i).pad_zeros(2), str(med)]
 		)
 
+func rnd_chart(values: PoolIntArray, max_val: int):
+	var med := max_val / values.size()
+	for i in values:
+		append_round(i, get_chart_val(i), med)
 
 func get_chart_val(idx: int) -> int:
-	var data := 0
-	if data_opt.selected == 17:
-		data = RoundDB.rounds[idx].total_score
-	elif data_opt.selected == 18:
-		data = RoundDB.rounds[idx].time
-	else:
-		data = Score.calc_mission(
+	match data_opt.selected:
+		17: return RoundDB.rounds[idx].total_score
+		18: return RoundDB.rounds[idx].time
+		_: return Score.calc_mission(
 			data_opt.selected, RoundDB.rounds[idx].score.missions[data_opt.selected]
 		)
-	return data
 
 
 func append_round(idx: int, val: int, med: int) -> void:

@@ -6,18 +6,20 @@ var total_score := 0
 var time := 150.0
 var unix_time := 0
 var round_media_path := ""
+var name := ""
 
 
-func set_props(_score: Score, _unix_time: int, _time: float, _round_media_path: String):
+func set_props(_score: Score, _unix_time: int, _time: float, _round_media_path: String, _name: String):
 	score = _score
 	total_score = _score.calc()
 	unix_time = _unix_time
 	time = _time
 	round_media_path = _round_media_path
+	name = _name
 
 
 func as_json() -> String:
-	return to_json([score.as_json(), var2str(unix_time), var2str(time), round_media_path])
+	return to_json([score.as_json(), var2str(unix_time), var2str(time), round_media_path, name])
 
 
 func _ready() -> void:
