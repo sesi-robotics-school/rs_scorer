@@ -31,9 +31,6 @@ spinboxes = [ "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxC
 margin_right = 1360.0
 margin_bottom = 720.0
 theme = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBox" type="HBoxContainer" parent="Margin"]
 margin_right = 1360.0
@@ -1168,9 +1165,6 @@ bbcode_enabled = true
 margin_right = 625.0
 margin_bottom = 614.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 label_font = ExtResource( 3 )
 MAX_VALUES = 24
 grid_color = Color( 1, 1, 1, 0.694118 )
@@ -1204,8 +1198,8 @@ dialog_text = "Arquivo inexistente ou movido"
 [connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/RegisterRoundBtn" to="." method="_on_RegisterRoundBtn_pressed"]
 [connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/SetRoudVideo" to="." method="_on_SetRoudVideo_pressed"]
 [connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/UndoRound" to="." method="_on_UndoRound_pressed"]
-[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/ClearBtn" to="." method="up_chart"]
 [connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/ClearBtn" to="." method="_on_ClearBtn_pressed"]
+[connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/ClearBtn" to="." method="up_chart"]
 [connection signal="pressed" from="Margin/HBox/VBox/VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M00/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M00_CheckBox_toggled"]
 [connection signal="toggled" from="Margin/HBox/ScrollContainer/VBoxContainer/M01/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_M01_CheckBox_toggled"]
