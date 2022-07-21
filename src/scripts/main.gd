@@ -37,21 +37,21 @@ func _ready() -> void:
 	for spin in range(spinboxes.size()):
 		spinboxes[spin] = get_node(spinboxes[spin])
 
-	scr_lbl.text = "Pontuação atual: " + str(score.calc())
+	scr_lbl.text = "Total Score: " + str(score.calc())
 	chart.initialize(
 		chart.LABELS_TO_SHOW.X_LABEL + chart.LABELS_TO_SHOW.Y_LABEL, {points = Color(1.0, 1.0, 1.0)}
 	)
 
 	for i in range(17):
 		data_opt.add_item("M" + str(i).pad_zeros(2))
-	data_opt.add_item("Pontuação Total")
-	data_opt.add_item("Tempo Total")
-	data_opt.add_item("Precisão")
+	data_opt.add_item("Total Score")
+	data_opt.add_item("Time")
+	data_opt.add_item("Precision")
 	data_opt.select(17)
 
-	chick_opt.add_item("fora")
-	chick_opt.add_item("parcialmente dentro")
-	chick_opt.add_item("completamente dentro")
+	chick_opt.add_item("out")
+	chick_opt.add_item("parcially inside")
+	chick_opt.add_item("completally inside")
 	chick_opt.select(0)
 
 
@@ -84,13 +84,13 @@ func _on_ClearBtn_pressed() -> void:
 func _on_StopwatchBtn_pressed() -> void:
 	match sw_state:
 		SwState.LAZY:
-			sw_btn.text = "Parar"
+			sw_btn.text = "Stop"
 			sw_state = SwState.RUNNING
 		SwState.RUNNING:
-			sw_btn.text = "Resetar"
+			sw_btn.text = "Reset"
 			sw_state = SwState.STOPING
 		SwState.STOPING:
-			sw_btn.text = "Iniciar"
+			sw_btn.text = "Start"
 			sw_state = SwState.LAZY
 			remain_time = 150
 
@@ -101,14 +101,14 @@ func set_score(idx: int, subidx: int, val: int) -> void:
 	else:
 		score.missions[idx] = val
 
-	scr_lbl.text = "Pontuação atual: " + str(score.calc())
+	scr_lbl.text = "Total Score: " + str(score.calc())
 
 
 func up_stats() -> void:
-	best_score_lbl.text = "Melhor pontuação: " + str(RoundDB.best_score)
-	best_time_lbl.text = "Melhor tempo: " + str(stepify(RoundDB.best_time, 0.001))
+	best_score_lbl.text = "Highest score: " + str(RoundDB.best_score)
+	best_time_lbl.text = "Best time: " + str(stepify(RoundDB.best_time, 0.001))
 	avg_score_lbl.text = (
-		"Média de pontuação: "
+		"Score Mean: "
 		+ (
 			str(stepify(RoundDB.total_score as float / RoundDB.rounds.size(), 0.001))
 			if RoundDB.rounds.size() > 0
@@ -116,14 +116,14 @@ func up_stats() -> void:
 		)
 	)
 	avg_time_lbl.text = (
-		"Média de tempo: "
+		"Time Mean: "
 		+ (
 			str(stepify(RoundDB.total_time as float / RoundDB.rounds.size(), 0.001))
 			if RoundDB.rounds.size() > 0
 			else "0"
 		)
 	)
-	round_count_lbl.text = ("Quantidade de Rounds: " + str(RoundDB.rounds.size()))
+	round_count_lbl.text = ("Round Count: " + str(RoundDB.rounds.size()))
 	idx_final.max_value = RoundDB.rounds.size()
 	spin_round_med.max_value = RoundDB.rounds.size()
 
@@ -245,7 +245,7 @@ func up_container(contidx: int, value: int) -> void:
 	var sum := 0
 	for spin in spinboxes: sum += spin.value
 	if sum > 8: value -= 1
-	remain_conts.text = "Contâiners restantes: " + str(8 - sum)
+	remain_conts.text = "Remaining Containers " + str(8 - sum)
 	spinboxes[contidx].value = value
 	spinboxes_containers[contidx] = value
 
@@ -337,7 +337,7 @@ func rnd_chart(values: PoolIntArray, max_val: int):
 		sum += rdv
 		append_round(i, get_chart_val(i), med)
 	table.bbcode_text += (
-		"Média: " + str(sum / values.size() as float)
+		"Mean: " + str(sum / values.size() as float)
 	)
 
 func get_chart_val(idx: int) -> int:
