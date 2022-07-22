@@ -32,8 +32,10 @@ var ifdx := 0
 var spinboxes_containers := [0, 0, 0, 0, 0, 0, 0, 0]
 var cameras := []
 var round_media_path := ""
+var filter := RegEx.new()
 
 func _ready() -> void:
+	filter.compile(".*")
 	for spin in range(spinboxes.size()):
 		spinboxes[spin] = get_node(spinboxes[spin])
 
@@ -296,7 +298,7 @@ func up_chart(_x):
 	var max_val := 0
 	for i in range(idx_init.value, idx_final.value):
 		var rd = RoundDB.rounds[i]
-		if round_name.text == "*" or rd.name == round_name.text:
+		if filter.search(rd.name) != null:
 			rounds.append(i)
 			var chart_val := get_chart_val(i)
 			max_val = max(max_val, chart_val)
@@ -304,7 +306,7 @@ func up_chart(_x):
 
 func rnd_avg_chart():
 	table.bbcode_text = ""
-	chart.clear_chart()	
+	chart.clear_chart()
 	chart.max_value = 100
 	for i in range(17):
 		var max_val := Score.calc_mission(i, RoundDB.rounds[idx_init.value].score.missions[i])
@@ -330,7 +332,7 @@ func rnd_avg_chart():
 func rnd_chart(values: PoolIntArray, max_val: int):
 	table.bbcode_text = ""
 	chart.clear_chart()
-	var med := max_val / values.size() as float
+	var med := max_val / max(values.size(), 1) as float
 	var sum := 0
 	for i in values:
 		var rdv = get_chart_val(i)
@@ -406,3 +408,11 @@ func _on_Button_pressed():
 			print('Error opening round media file')
 	else:
 		$AcceptDialog.show()
+
+
+func _on_LineEdit_text_entered(new_text):
+	filter = RegEx.new()
+	var err := filter.compile(new_text)
+	if err != OK:
+		push_error("Error compiling regex round filter: " + str(err))
+	up_chart(false)

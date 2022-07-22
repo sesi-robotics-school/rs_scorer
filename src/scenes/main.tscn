@@ -22,7 +22,7 @@ idx_final = NodePath("Margin/HBox/VBoxContainer/HBoxContainer2/SpinBox2")
 data_opt = NodePath("Margin/HBox/VBoxContainer/HBoxContainer/OptionButton")
 remain_conts = NodePath("Margin/HBox/VBox/VBoxContainer/RemainingContainersLbl")
 chick_opt = NodePath("Margin/HBox/ScrollContainer/VBoxContainer/M12/VBoxContainer/HBoxContainer3/OptionButton")
-table = NodePath("Margin/HBox/VBoxContainer/ReferenceRect/RichTextLabel")
+table = NodePath("Margin/HBox/VBox/VBoxContainer/RichTextLabel")
 spin_round_med = NodePath("Margin/HBox/VBox/VBoxContainer/HBoxContainer/SpinBox")
 round_name = NodePath("Margin/HBox/VBoxContainer/HBoxContainer2/LineEdit")
 spinboxes = [ "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer2/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M15/VBoxContainer/HBoxContainer3/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer/SpinBox", "Margin/HBox/ScrollContainer/VBoxContainer/M16/VBoxContainer/HBoxContainer2/SpinBox" ]
@@ -45,7 +45,7 @@ scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/VBox"]
 margin_right = 224.0
-margin_bottom = 422.0
+margin_bottom = 656.0
 theme = ExtResource( 4 )
 custom_constants/separation = 2
 
@@ -113,17 +113,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RegisterRoundBtn" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/VBox/VBoxContainer"]
 margin_top = 155.0
 margin_right = 224.0
 margin_bottom = 175.0
+
+[node name="Label" type="Label" parent="Margin/HBox/VBox/VBoxContainer/HBoxContainer2"]
+margin_right = 88.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Round Name:"
+
+[node name="RoundName" type="LineEdit" parent="Margin/HBox/VBox/VBoxContainer/HBoxContainer2"]
+anchor_right = 0.156
+anchor_bottom = 0.036
+margin_left = 92.0
+margin_right = 188.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+
+[node name="RegisterRoundBtn" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 177.0
+margin_right = 224.0
+margin_bottom = 197.0
 theme = ExtResource( 4 )
 text = "Save Round"
 
 [node name="SetRoudVideo" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
-margin_top = 177.0
+margin_top = 199.0
 margin_right = 224.0
-margin_bottom = 197.0
+margin_bottom = 219.0
 theme = ExtResource( 4 )
 text = "Link media"
 __meta__ = {
@@ -131,15 +150,15 @@ __meta__ = {
 }
 
 [node name="UndoRound" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
-margin_top = 199.0
-margin_right = 224.0
-margin_bottom = 219.0
-text = "Delete last round"
-
-[node name="ClearBtn" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
 margin_top = 221.0
 margin_right = 224.0
 margin_bottom = 241.0
+text = "Delete last round"
+
+[node name="ClearBtn" type="Button" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 243.0
+margin_right = 224.0
+margin_bottom = 263.0
 theme = ExtResource( 4 )
 text = "Clear History"
 __meta__ = {
@@ -147,9 +166,9 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/VBox/VBoxContainer"]
-margin_top = 243.0
+margin_top = 265.0
 margin_right = 224.0
-margin_bottom = 263.0
+margin_bottom = 285.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -165,44 +184,44 @@ margin_right = 204.0
 margin_bottom = 20.0
 
 [node name="BestRoundTime" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
-margin_top = 265.0
-margin_right = 224.0
-margin_bottom = 285.0
-theme = ExtResource( 4 )
-text = "Best time: "
-
-[node name="BestRoundScore" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
 margin_top = 287.0
 margin_right = 224.0
 margin_bottom = 307.0
 theme = ExtResource( 4 )
-text = "Highest score:"
+text = "Best time: "
 
-[node name="AvgRoundScore" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+[node name="BestRoundScore" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
 margin_top = 309.0
 margin_right = 224.0
 margin_bottom = 329.0
 theme = ExtResource( 4 )
-text = "Time Mean:"
+text = "Highest score:"
 
-[node name="AvgRoundTime" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+[node name="AvgRoundScore" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
 margin_top = 331.0
 margin_right = 224.0
 margin_bottom = 351.0
 theme = ExtResource( 4 )
-text = "Score Mean:"
+text = "Time Mean:"
 
-[node name="RoundCount" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+[node name="AvgRoundTime" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
 margin_top = 353.0
 margin_right = 224.0
 margin_bottom = 373.0
 theme = ExtResource( 4 )
+text = "Score Mean:"
+
+[node name="RoundCount" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 375.0
+margin_right = 224.0
+margin_bottom = 395.0
+theme = ExtResource( 4 )
 text = "Round Count: "
 
 [node name="VBoxContainer2" type="ScrollContainer" parent="Margin/HBox/VBox/VBoxContainer"]
-margin_top = 375.0
+margin_top = 397.0
 margin_right = 224.0
-margin_bottom = 375.0
+margin_bottom = 397.0
 theme = ExtResource( 4 )
 follow_focus = true
 scroll_horizontal_enabled = false
@@ -211,9 +230,9 @@ scroll_vertical_enabled = false
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox/VBox/VBoxContainer/VBoxContainer2"]
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Margin/HBox/VBox/VBoxContainer"]
-margin_top = 377.0
+margin_top = 399.0
 margin_right = 224.0
-margin_bottom = 377.0
+margin_bottom = 399.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -229,17 +248,22 @@ margin_top = 259.0
 margin_right = 234.0
 margin_bottom = 342.0
 texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Margin/HBox/VBox/VBoxContainer"]
-margin_top = 379.0
+margin_top = 401.0
 margin_right = 224.0
-margin_bottom = 422.0
+margin_bottom = 444.0
 text = "
 Graphic Values Table"
 valign = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/HBox/VBox/VBoxContainer"]
+margin_top = 446.0
+margin_right = 224.0
+margin_bottom = 656.0
+rect_min_size = Vector2( 0.511, 210 )
+size_flags_horizontal = 15
+bbcode_enabled = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Margin/HBox"]
 margin_left = 228.0
@@ -1091,9 +1115,27 @@ margin_right = 1212.0
 margin_bottom = 720.0
 theme = ExtResource( 4 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
 margin_right = 484.0
 margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Margin/HBox/VBoxContainer/HBoxContainer3"]
+margin_right = 96.0
+margin_bottom = 20.0
+theme = ExtResource( 4 )
+text = "Data filter:"
+
+[node name="LineEdit" type="LineEdit" parent="Margin/HBox/VBoxContainer/HBoxContainer3"]
+margin_left = 100.0
+margin_right = 484.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+placeholder_text = ".*"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
+margin_top = 30.0
+margin_right = 484.0
+margin_bottom = 50.0
 theme = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="Margin/HBox/VBoxContainer/HBoxContainer2"]
@@ -1127,9 +1169,9 @@ theme = ExtResource( 4 )
 text = "Auto"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
-margin_top = 30.0
+margin_top = 60.0
 margin_right = 484.0
-margin_bottom = 50.0
+margin_bottom = 80.0
 theme = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="Margin/HBox/VBoxContainer/HBoxContainer"]
@@ -1146,21 +1188,15 @@ theme = ExtResource( 4 )
 text = "Round"
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Margin/HBox/VBoxContainer"]
-margin_top = 60.0
+margin_top = 90.0
 margin_right = 484.0
-margin_bottom = 60.0
+margin_bottom = 90.0
 theme = ExtResource( 4 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Margin/HBox/VBoxContainer/ReferenceRect"]
-margin_left = -676.0
-margin_top = 364.0
-margin_right = -452.0
-margin_bottom = 574.0
-bbcode_enabled = true
 
 [node name="GDCharts" type="ReferenceRect" parent="Margin/HBox/VBoxContainer/ReferenceRect"]
 margin_right = 625.0
 margin_bottom = 614.0
+theme = ExtResource( 4 )
 script = ExtResource( 1 )
 label_font = ExtResource( 3 )
 MAX_VALUES = 24
